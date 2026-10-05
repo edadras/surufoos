@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\ContentStatus;
 use App\Enums\StockStatus;
 use App\Models\Concerns\HasTranslations;
+use App\Support\TextNormalizer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -154,6 +155,6 @@ class Product extends Model
         }
         $value = rtrim(rtrim(number_format($this->net_weight, 2, '.', ''), '0'), '.');
 
-        return \App\Support\TextNormalizer::localizeDigits($value).' '.__('units.'.($this->weight_unit ?: 'g'));
+        return TextNormalizer::localizeDigits($value).' '.__('units.'.($this->weight_unit ?: 'g'));
     }
 }

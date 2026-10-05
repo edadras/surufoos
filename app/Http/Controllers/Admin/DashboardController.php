@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
+use App\Models\Order;
 use App\Services\ContentHealthService;
 
 class DashboardController extends Controller
@@ -15,8 +17,8 @@ class DashboardController extends Controller
             'popular' => $health->popularProducts(),
             'searchTerms' => $health->topSearchTerms(),
             'views' => $health->dailyViews(14),
-            'recentMessages' => \App\Models\Contact::latest()->limit(5)->get(),
-            'recentOrders' => settings()->commerceEnabled() ? \App\Models\Order::latest()->limit(5)->get() : collect(),
+            'recentMessages' => Contact::latest()->limit(5)->get(),
+            'recentOrders' => settings()->commerceEnabled() ? Order::latest()->limit(5)->get() : collect(),
         ]);
     }
 }

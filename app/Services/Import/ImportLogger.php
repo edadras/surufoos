@@ -4,6 +4,7 @@ namespace App\Services\Import;
 
 use App\Models\ContentImportLog;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Throwable;
 
 /**
@@ -44,7 +45,7 @@ class ImportLogger
         $log = $this->find($sourceType, $id);
 
         return $log && $log->content_hash === $hash && $log->status !== 'failed' && $log->destination_id
-            && class_exists($class = \Illuminate\Database\Eloquent\Relations\Relation::getMorphedModel($log->destination_type) ?? '')
+            && class_exists($class = Relation::getMorphedModel($log->destination_type) ?? '')
             && $class::whereKey($log->destination_id)->exists();
     }
 
@@ -54,7 +55,7 @@ class ImportLogger
         if (! $log?->destination_type || ! $log->destination_id) {
             return null;
         }
-        $class = \Illuminate\Database\Eloquent\Relations\Relation::getMorphedModel($log->destination_type);
+        $class = Relation::getMorphedModel($log->destination_type);
 
         return $class ? $class::find($log->destination_id) : null;
     }

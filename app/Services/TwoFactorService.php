@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Support\TextNormalizer;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
@@ -30,7 +31,7 @@ class TwoFactorService
 
     public function verify(string $secret, string $code, int $window = 1): bool
     {
-        $code = preg_replace('/\D/', '', \App\Support\TextNormalizer::normalize($code));
+        $code = preg_replace('/\D/', '', TextNormalizer::normalize($code));
         if (strlen($code) !== 6) {
             return false;
         }

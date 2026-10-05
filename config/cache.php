@@ -1,5 +1,9 @@
 <?php
 
+use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 return [
@@ -138,7 +142,10 @@ return [
         array_map(fn ($f) => 'App\\Enums\\'.basename($f, '.php'), glob(app_path('Enums/*.php')) ?: []),
         [
             Illuminate\Database\Eloquent\Collection::class,
-            Illuminate\Support\Collection::class,
+            Collection::class,
+            Pivot::class,
+            MorphPivot::class,
+            CarbonImmutable::class,
             Illuminate\Support\Carbon::class,
             Carbon\Carbon::class,
         ],

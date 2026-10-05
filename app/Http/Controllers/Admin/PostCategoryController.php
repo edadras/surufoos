@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PageRequest;
+use App\Http\Requests\Admin\TranslatableRequest;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
 
@@ -49,7 +49,8 @@ class PostCategoryController extends Controller
 
     private function validated(Request $request): array
     {
-        $rules = (new class extends \App\Http\Requests\Admin\TranslatableRequest {
+        $rules = (new class extends TranslatableRequest
+        {
             protected function translationRules(): array
             {
                 return ['title' => ['string', 'max:191'], 'slug' => [], 'short_description' => ['string', 'max:1000'], 'seo_title' => ['string', 'max:191'], 'seo_description' => ['string', 'max:500']];

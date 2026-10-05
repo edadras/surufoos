@@ -6,6 +6,8 @@ use App\Enums\ContentStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Category;
+use App\Models\Media;
+use App\Support\CacheGroups;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -53,7 +55,7 @@ class CategoryController extends Controller
     {
         $ids = $request->validate(['ids' => ['required', 'array'], 'ids.*' => ['integer']])['ids'];
         DB::transaction(fn () => collect($ids)->each(fn ($id, $i) => Category::whereKey($id)->update(['sort_order' => $i])));
-        \App\Support\CacheGroups::flush(\App\Support\CacheGroups::CATEGORIES, \App\Support\CacheGroups::MENUS, \App\Support\CacheGroups::HOME);
+        CacheGroups::flush(CacheGroups::CATEGORIES, CacheGroups::MENUS, CacheGroups::HOME);
 
         return response()->json(['ok' => true]);
     }
@@ -65,7 +67,7 @@ class CategoryController extends Controller
             $category->fill($data);
             $category->sort_order = (int) ($data['sort_order'] ?? 0);
             if (! $category->theme_color && $category->image_media_id) {
-                $category->theme_color = \App\Models\Media::find($category->image_media_id)?->dominant_color;
+                $category->theme_color = Media::find($category->image_media_id)?->dominant_color;
             }
             $category->save();
             $category->saveTranslations($request->translations());

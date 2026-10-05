@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin;
 use App\Enums\ContentStatus;
 use App\Enums\Nutrient;
 use App\Enums\StockStatus;
+use App\Support\TextNormalizer;
 use Illuminate\Validation\Rule;
 
 class ProductRequest extends TranslatableRequest
@@ -95,7 +96,7 @@ class ProductRequest extends TranslatableRequest
         ]);
         foreach (['price', 'sale_price'] as $f) {
             if ($this->filled($f)) {
-                $this->merge([$f => (int) preg_replace('/\D/', '', \App\Support\TextNormalizer::normalize((string) $this->input($f)))]);
+                $this->merge([$f => (int) preg_replace('/\D/', '', TextNormalizer::normalize((string) $this->input($f)))]);
             }
         }
     }

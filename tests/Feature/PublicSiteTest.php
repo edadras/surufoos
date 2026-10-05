@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Attribute;
 use App\Models\Ingredient;
 use App\Models\Page;
+use App\Models\Redirect;
 use App\Models\Slider;
 use App\Services\SettingsService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -179,9 +180,9 @@ class PublicSiteTest extends TestCase
 
     public function test_admin_redirects_apply_to_old_urls(): void
     {
-        \App\Models\Redirect::create(['from_path' => '/product/old-jam', 'to_path' => '/fa/products', 'status_code' => 301, 'is_active' => true]);
+        Redirect::create(['from_path' => '/product/old-jam', 'to_path' => '/fa/products', 'status_code' => 301, 'is_active' => true]);
         $this->get('/product/old-jam')->assertRedirect('/fa/products')->assertStatus(301);
-        $this->assertSame(1, \App\Models\Redirect::first()->hits);
+        $this->assertSame(1, Redirect::first()->hits);
     }
 
     public function test_about_page_uses_seeded_system_page(): void

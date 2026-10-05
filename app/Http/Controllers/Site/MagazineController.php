@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Models\Comment;
 use App\Models\Post;
 use App\Models\PostCategory;
 use App\Services\Seo;

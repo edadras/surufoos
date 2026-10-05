@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Enums\SectionType;
 use App\Models\Banner;
-use App\Models\Category;
 use App\Models\Certificate;
 use App\Models\Faq;
 use App\Models\Media;

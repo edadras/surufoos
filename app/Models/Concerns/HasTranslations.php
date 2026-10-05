@@ -7,6 +7,8 @@ use App\Support\TextNormalizer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 /**
@@ -108,7 +110,7 @@ trait HasTranslations
     {
         $model = $this->translationModelClass();
         $table = (new $model)->getTable();
-        $columns = \Illuminate\Support\Facades\Schema::getColumnListing($table);
+        $columns = Schema::getColumnListing($table);
         $hasSlug = in_array('slug', $columns, true);
         $hasSearch = in_array('search_text', $columns, true);
 
@@ -147,7 +149,7 @@ trait HasTranslations
         $slug = $base;
         $i = 2;
         $fk = $this->translationForeignKey();
-        while (\Illuminate\Support\Facades\DB::table($table)->where('locale', $locale)->where('slug', $slug)->where($fk, '!=', $this->getKey())->exists()) {
+        while (DB::table($table)->where('locale', $locale)->where('slug', $slug)->where($fk, '!=', $this->getKey())->exists()) {
             $slug = $base.'-'.$i++;
         }
 

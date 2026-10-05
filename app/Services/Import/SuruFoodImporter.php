@@ -7,6 +7,7 @@ use App\Enums\StockStatus;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
 use App\Models\Category;
+use App\Models\Media;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\PostCategory;
@@ -618,7 +619,7 @@ class SuruFoodImporter
 
     // ----------------------------------------------------------------- helpers
 
-    private function featuredImage(array $row, string $alt): ?\App\Models\Media
+    private function featuredImage(array $row, string $alt): ?Media
     {
         $media = $row['_embedded']['wp:featuredmedia'][0] ?? null;
 

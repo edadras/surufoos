@@ -2,6 +2,8 @@
 
 use App\Services\SettingsService;
 use App\Support\TextNormalizer;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 
 if (! function_exists('settings')) {
     function settings(?string $key = null, mixed $default = null): mixed
@@ -36,7 +38,7 @@ if (! function_exists('money')) {
 
 if (! function_exists('jdate')) {
     /** Locale-aware date: Jalali for Persian, Hijri-free Gregorian otherwise. */
-    function jdate(?\DateTimeInterface $date, string $pattern = 'd MMMM y', ?string $locale = null): ?string
+    function jdate(?DateTimeInterface $date, string $pattern = 'd MMMM y', ?string $locale = null): ?string
     {
         if (! $date) {
             return null;
@@ -73,8 +75,8 @@ if (! function_exists('clean_html')) {
             return '';
         }
         static $sanitizer = null;
-        $sanitizer ??= new Symfony\Component\HtmlSanitizer\HtmlSanitizer(
-            (new Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig)
+        $sanitizer ??= new HtmlSanitizer(
+            (new HtmlSanitizerConfig)
                 ->allowSafeElements()
                 ->allowElement('iframe', ['src', 'width', 'height', 'allowfullscreen', 'title'])
                 ->allowLinkSchemes(['https', 'http', 'mailto', 'tel'])

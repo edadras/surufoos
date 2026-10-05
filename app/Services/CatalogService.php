@@ -7,6 +7,7 @@ use App\Enums\StockStatus;
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductTranslation;
 use App\Support\CacheGroups;
 use App\Support\TextNormalizer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -58,7 +59,7 @@ class CatalogService
             'price_asc' => $query->orderByRaw('price IS NULL')->orderBy('price'),
             'price_desc' => $query->orderByDesc('price'),
             'title' => $query->orderBy(
-                \App\Models\ProductTranslation::select('title')->whereColumn('product_id', 'products.id')->where('locale', app()->getLocale())->limit(1)
+                ProductTranslation::select('title')->whereColumn('product_id', 'products.id')->where('locale', app()->getLocale())->limit(1)
             ),
             default => $query->orderByDesc('is_featured')->orderBy('sort_order')->orderByDesc('id'),
         };

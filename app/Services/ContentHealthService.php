@@ -4,17 +4,29 @@ namespace App\Services;
 
 use App\Enums\ContentStatus;
 use App\Enums\StockStatus;
+use App\Models\Attribute;
+use App\Models\AttributeValue;
 use App\Models\Category;
+use App\Models\Certificate;
 use App\Models\Contact;
 use App\Models\ContentImportLog;
+use App\Models\Faq;
+use App\Models\Ingredient;
 use App\Models\Media;
+use App\Models\MenuItem;
 use App\Models\Order;
 use App\Models\Page;
+use App\Models\PageSection;
 use App\Models\PageView;
 use App\Models\Post;
+use App\Models\PostCategory;
 use App\Models\Product;
 use App\Models\Recipe;
 use App\Models\SearchTerm;
+use App\Models\Slider;
+use App\Models\Tag;
+use App\Models\Testimonial;
+use App\Models\TimelineEntry;
 use App\Support\Locales;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -33,19 +45,19 @@ class ContentHealthService
         'posts' => [Post::class, 'مقالات', 'title'],
         'recipes' => [Recipe::class, 'دستورهای غذایی', 'title'],
         'pages' => [Page::class, 'صفحات', 'title'],
-        'post-categories' => [\App\Models\PostCategory::class, 'دسته‌های مجله', 'title'],
-        'attributes' => [\App\Models\Attribute::class, 'ویژگی‌ها', 'name'],
-        'attribute-values' => [\App\Models\AttributeValue::class, 'مقادیر ویژگی', 'value'],
-        'ingredients' => [\App\Models\Ingredient::class, 'مواد اولیه', 'name'],
-        'menu-items' => [\App\Models\MenuItem::class, 'آیتم‌های منو', 'label'],
-        'sliders' => [\App\Models\Slider::class, 'اسلایدها', 'title'],
-        'sections' => [\App\Models\PageSection::class, 'سکشن‌های صفحه‌ساز', 'title'],
-        'faqs' => [\App\Models\Faq::class, 'پرسش‌های متداول', 'question'],
-        'testimonials' => [\App\Models\Testimonial::class, 'نظرات مشتریان', 'author_name'],
-        'timeline' => [\App\Models\TimelineEntry::class, 'تایم‌لاین', 'title'],
-        'certificates' => [\App\Models\Certificate::class, 'گواهی‌ها', 'title'],
+        'post-categories' => [PostCategory::class, 'دسته‌های مجله', 'title'],
+        'attributes' => [Attribute::class, 'ویژگی‌ها', 'name'],
+        'attribute-values' => [AttributeValue::class, 'مقادیر ویژگی', 'value'],
+        'ingredients' => [Ingredient::class, 'مواد اولیه', 'name'],
+        'menu-items' => [MenuItem::class, 'آیتم‌های منو', 'label'],
+        'sliders' => [Slider::class, 'اسلایدها', 'title'],
+        'sections' => [PageSection::class, 'سکشن‌های صفحه‌ساز', 'title'],
+        'faqs' => [Faq::class, 'پرسش‌های متداول', 'question'],
+        'testimonials' => [Testimonial::class, 'نظرات مشتریان', 'author_name'],
+        'timeline' => [TimelineEntry::class, 'تایم‌لاین', 'title'],
+        'certificates' => [Certificate::class, 'گواهی‌ها', 'title'],
         'media' => [Media::class, 'متن جایگزین تصاویر', 'alt'],
-        'tags' => [\App\Models\Tag::class, 'برچسب‌ها', 'name'],
+        'tags' => [Tag::class, 'برچسب‌ها', 'name'],
     ];
 
     public function stats(): array

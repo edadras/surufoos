@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Media;
 use App\Models\Setting;
 use App\Support\CacheGroups;
-use App\Support\Locales;
 use App\Support\SettingsSchema;
 
 class SettingsService

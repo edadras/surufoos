@@ -7,7 +7,6 @@ use App\Enums\SectionType;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
 use App\Models\Menu;
-use App\Models\MenuItem;
 use App\Models\Page;
 use App\Services\SettingsService;
 use Illuminate\Database\Seeder;
@@ -68,7 +67,7 @@ class StructureSeeder extends Seeder
                 [SectionType::Hero, ['slider_placement' => 'home_hero']],
                 [SectionType::Story, []],
                 [SectionType::ProductUniverse, ['limit' => 8]],
-                [SectionType::ProductShowcase, ['source' => 'featured', 'limit' => 7]],
+                [SectionType::ProductShowcase, ['source' => 'featured', 'limit' => 9]],
                 [SectionType::InsideSuru, ['limit' => 3]],
                 [SectionType::Journey, ['group' => 'journey']],
                 [SectionType::Banners, ['placement' => 'home']],

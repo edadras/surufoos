@@ -12,11 +12,17 @@ use Illuminate\Support\Facades\Cache;
 class CacheGroups
 {
     public const SETTINGS = 'settings';
+
     public const MENUS = 'menus';
+
     public const HOME = 'home';
+
     public const CATEGORIES = 'categories';
+
     public const PRODUCTS = 'products';
+
     public const CONTENT = 'content';
+
     public const TRANSLATIONS = 'translations';
 
     public static function remember(string $group, string $key, Closure $callback, ?int $ttl = null): mixed

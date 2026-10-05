@@ -2,9 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\Models\AttributeValue;
+use App\Models\Contact;
+use App\Models\Ingredient;
 use App\Models\Media;
+use App\Models\Menu;
 use App\Models\Page;
+use App\Models\PageSection;
 use App\Models\Product;
+use App\Models\User;
 use App\Services\TwoFactorService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -24,7 +30,7 @@ class AdminPanelTest extends TestCase
     public function test_guests_and_customers_cannot_enter_admin(): void
     {
         $this->get('/admin')->assertRedirect('/admin/login');
-        $customer = \App\Models\User::factory()->create();
+        $customer = User::factory()->create();
         $this->actingAs($customer)->get('/admin')->assertRedirect('/admin/login');
     }
 
@@ -47,7 +53,7 @@ class AdminPanelTest extends TestCase
             '/admin/categories', '/admin/categories/create', '/admin/attributes', '/admin/attributes/create', '/admin/ingredients', '/admin/ingredients/create',
             '/admin/posts', '/admin/posts/create', '/admin/post-categories', '/admin/post-categories/create', '/admin/recipes', '/admin/recipes/create',
             '/admin/pages', '/admin/pages/create', "/admin/pages/{$home->id}/edit", "/admin/pages/{$home->id}/sections/{$home->sections->first()->id}/edit",
-            '/admin/sliders', '/admin/sliders/create', '/admin/banners', '/admin/banners/create', '/admin/menus', '/admin/menus/'.\App\Models\Menu::first()->id.'/edit',
+            '/admin/sliders', '/admin/sliders/create', '/admin/banners', '/admin/banners/create', '/admin/menus', '/admin/menus/'.Menu::first()->id.'/edit',
             '/admin/blocks/faqs', '/admin/blocks/faqs/create', '/admin/blocks/testimonials/create', '/admin/blocks/timeline/create', '/admin/blocks/certificates/create',
             '/admin/comments', '/admin/media', '/admin/media/picker', '/admin/translations', '/admin/translations?type=products&locale=en', "/admin/translations/products/{$product->id}",
             '/admin/contacts', '/admin/newsletter', '/admin/orders', '/admin/seo', '/admin/redirects', '/admin/redirects/create',
@@ -66,7 +72,7 @@ class AdminPanelTest extends TestCase
     {
         $admin = $this->admin();
         $this->product(['fa' => 'بدون تصویر']);
-        \App\Models\Contact::create(['name' => 'x', 'message' => 'hello']);
+        Contact::create(['name' => 'x', 'message' => 'hello']);
         $this->actingAs($admin)->get('/admin')->assertSee('محصولات ناقص')->assertSee('پیام‌های خوانده‌نشده')->assertSee('ترجمه انگلیسی ناقص');
     }
 
@@ -74,9 +80,9 @@ class AdminPanelTest extends TestCase
     {
         $admin = $this->admin();
         $category = $this->category();
-        $ingredient = \App\Models\Ingredient::create([]);
+        $ingredient = Ingredient::create([]);
         $ingredient->saveTranslations(['fa' => ['name' => 'شکر']], 'name');
-        $value = \App\Models\AttributeValue::where('code', 'sweet')->first();
+        $value = AttributeValue::where('code', 'sweet')->first();
 
         $this->actingAs($admin)->post('/admin/products', [
             'translations' => [
@@ -149,7 +155,7 @@ class AdminPanelTest extends TestCase
         $admin = $this->admin();
         $page = Page::where('key', 'home')->first();
         $this->actingAs($admin)->post("/admin/pages/{$page->id}/sections", ['type' => 'rich_text'])->assertRedirect();
-        $section = \App\Models\PageSection::latest("id")->first();
+        $section = PageSection::latest('id')->first();
 
         $this->actingAs($admin)->put("/admin/pages/{$page->id}/sections/{$section->id}", [
             'is_active' => 1,
