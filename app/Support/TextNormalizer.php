@@ -48,6 +48,12 @@ class TextNormalizer
         };
     }
 
+    /** Converts Persian/Arabic digits to Latin, leaving every other character untouched. */
+    public static function latinDigits(string $text): string
+    {
+        return strtr($text, array_filter(self::MAP, fn ($v, $k) => ctype_digit($v) && mb_strlen($k) === 1, ARRAY_FILTER_USE_BOTH));
+    }
+
     /** URL-safe slug that keeps Persian/Arabic letters. */
     public static function slug(string $text): string
     {

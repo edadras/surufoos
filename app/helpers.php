@@ -28,7 +28,9 @@ if (! function_exists('money')) {
         }
         $locale ??= app()->getLocale();
 
-        return digits(number_format($amount), $locale).' '.__('ui.currency', [], $locale);
+        $separator = in_array($locale, ['fa', 'ar'], true) ? '٬' : ',';
+
+        return digits(number_format($amount, 0, '.', $separator), $locale).' '.__('ui.currency', [], $locale);
     }
 }
 

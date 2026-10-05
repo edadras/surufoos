@@ -38,6 +38,15 @@ return Application::configure(basePath: dirname(__DIR__))
             : route('account.index', ['locale' => app()->getLocale()]));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        // Admin errors render inside the Persian admin shell, not the public site layout.
+        $exceptions->render(function (Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $e, Request $request) {
+            if ($request->is('admin', 'admin/*') && ! $request->expectsJson() && in_array($e->getStatusCode(), [403, 404, 422], true)) {
+                return response()->view('admin.error', [
+                    'code' => $e->getStatusCode(),
+                    'message' => $e->getMessage() ?: ($e->getStatusCode() === 403 ? 'شما به این بخش دسترسی ندارید.' : 'صفحه پیدا نشد.'),
+                ], $e->getStatusCode());
+            }
+        });
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );

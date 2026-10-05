@@ -131,6 +131,17 @@ return [
     |
     */
 
-    'serializable_classes' => false,
+    // Cached menus, categories and homepage sections hold Eloquent models, so the
+    // app's own models, enums and collection classes are allow-listed explicitly.
+    'serializable_classes' => array_merge(
+        array_map(fn ($f) => 'App\\Models\\'.basename($f, '.php'), glob(app_path('Models/*.php')) ?: []),
+        array_map(fn ($f) => 'App\\Enums\\'.basename($f, '.php'), glob(app_path('Enums/*.php')) ?: []),
+        [
+            Illuminate\Database\Eloquent\Collection::class,
+            Illuminate\Support\Collection::class,
+            Illuminate\Support\Carbon::class,
+            Carbon\Carbon::class,
+        ],
+    ),
 
 ];

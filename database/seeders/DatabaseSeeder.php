@@ -2,24 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+/**
+ * Seeds only structure, never content: roles/permissions, menu skeletons,
+ * system pages with their section layout, quiz taxonomy and safe defaults.
+ * Products, categories, images, articles and brand data come from
+ * `php artisan suru:import` (real Suru Food content) or the admin panel.
+ */
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            RolesSeeder::class,
+            StructureSeeder::class,
         ]);
     }
 }

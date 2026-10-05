@@ -102,6 +102,14 @@ class MediaService
         }
 
         if ($this->isConvertible($mime)) {
+            // Cheap analysis runs immediately so importers/editors can use it (packshot detection,
+            // theme colour); resized WebP/AVIF variants are generated on the queue.
+            [$dominant, $palette] = $this->extractPalette($contents);
+            $media->forceFill([
+                'has_transparency' => $this->hasTransparency($contents),
+                'dominant_color' => $dominant,
+                'palette' => $palette,
+            ])->save();
             GenerateMediaVariants::dispatch($media->id);
         }
 
