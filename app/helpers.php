@@ -59,3 +59,46 @@ if (! function_exists('lroute')) {
         return route($name, ['locale' => $locale ?? app()->getLocale()] + $params);
     }
 }
+
+if (! function_exists('clean_html')) {
+    /**
+     * Sanitises CMS/imported rich text: keeps editorial markup (headings, lists,
+     * links, images, tables) and strips scripts, event handlers and styles.
+     */
+    function clean_html(?string $html): string
+    {
+        if ($html === null || trim($html) === '') {
+            return '';
+        }
+        static $sanitizer = null;
+        $sanitizer ??= new Symfony\Component\HtmlSanitizer\HtmlSanitizer(
+            (new Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig)
+                ->allowSafeElements()
+                ->allowElement('iframe', ['src', 'width', 'height', 'allowfullscreen', 'title'])
+                ->allowLinkSchemes(['https', 'http', 'mailto', 'tel'])
+                ->allowMediaSchemes(['https', 'http'])
+                ->allowRelativeLinks()
+                ->allowRelativeMedias()
+                ->forceAttribute('a', 'rel', 'noopener')
+                ->withMaxInputLength(500000)
+        );
+
+        return $sanitizer->sanitize($html);
+    }
+}
+
+if (! function_exists('rich_text')) {
+    /** Rich HTML is sanitised; plain text gets paragraphs and line breaks. */
+    function rich_text(?string $text): string
+    {
+        if ($text === null || trim($text) === '') {
+            return '';
+        }
+        if ($text !== strip_tags($text)) {
+            return clean_html($text);
+        }
+
+        return collect(preg_split("/\R{2,}/u", trim($text)))
+            ->map(fn ($p) => '<p>'.nl2br(e(trim($p)), false).'</p>')->implode('');
+    }
+}

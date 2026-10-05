@@ -60,6 +60,7 @@ return [
         'count' => ':count منتج',
         'contact_for_price' => 'تواصل معنا لمعرفة السعر',
         'variant' => 'اختر النوع',
+        'availability' => 'التوفر',
         'package_shot' => 'العبوة',
     ],
     'stock' => ['in_stock' => 'متوفر', 'out_of_stock' => 'غير متوفر', 'preorder' => 'طلب مسبق', 'discontinued' => 'متوقف'],

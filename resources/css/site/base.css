@@ -1,0 +1,81 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-block-start: calc(var(--header-h) + 1rem); }
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--c-surface);
+    color: var(--c-text);
+    font-family: var(--f-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    font-feature-settings: 'ss01', 'kern';
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+}
+img, picture, video, svg { display: block; max-inline-size: 100%; }
+img { block-size: auto; }
+picture img { inline-size: 100%; }
+input, button, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+p, h1, h2, h3, h4, figure, blockquote, dl, dd { margin: 0; }
+ul[role='list'], ol[role='list'] { list-style: none; padding: 0; margin: 0; }
+table { border-collapse: collapse; inline-size: 100%; }
+[hidden] { display: none !important; }
+
+h1, h2, h3, .display-1, .display-2, .display-3 {
+    font-family: var(--f-display);
+    font-weight: var(--fw-display);
+    line-height: var(--lh-heading);
+    letter-spacing: -.015em;
+    text-wrap: balance;
+}
+[dir='rtl'] h1, [dir='rtl'] h2, [dir='rtl'] h3, [dir='rtl'] .display-1, [dir='rtl'] .display-2, [dir='rtl'] .display-3 { letter-spacing: 0; }
+.display-1 { font-size: var(--fs-h1); line-height: var(--lh-tight); font-variation-settings: 'opsz' 144, 'SOFT' 50; }
+.display-2 { font-size: var(--fs-h2); font-variation-settings: 'opsz' 120, 'SOFT' 50; }
+.display-3 { font-size: var(--fs-h3); }
+.h2 { font-size: var(--fs-h3); margin-block: var(--space-6) var(--space-4); }
+.h3 { font-size: 1.15rem; margin-block: var(--space-5) var(--space-3); }
+.lead { font-size: var(--fs-body-lg); color: var(--c-text-2); max-inline-size: 60ch; text-wrap: pretty; }
+.muted { color: var(--c-text-2); }
+
+.eyebrow {
+    display: inline-flex; align-items: center; gap: .6em;
+    font-family: var(--f-body);
+    font-size: var(--fs-caption);
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--c-text-2);
+    margin: 0;
+    text-decoration: none;
+}
+[dir='rtl'] .eyebrow { letter-spacing: 0; font-size: var(--fs-small); }
+.eyebrow__num { font-variant-numeric: tabular-nums; color: var(--c-secondary); }
+.eyebrow__num:empty { display: none; }
+.eyebrow--line::before { content: ''; inline-size: 2.5rem; block-size: 1px; background: currentColor; }
+
+.prose { max-inline-size: 68ch; }
+.prose > * + * { margin-block-start: 1em; }
+.prose h2 { font-size: var(--fs-h3); margin-block-start: 2em; }
+.prose h3 { font-size: 1.2rem; margin-block-start: 1.6em; }
+.prose a { color: var(--c-secondary); }
+.prose img { border-radius: var(--r-md); margin-block: 1.5em; }
+.prose ul, .prose ol { padding-inline-start: 1.25em; }
+.prose blockquote { border-inline-start: 3px solid var(--c-accent); padding-inline-start: 1.2em; font-family: var(--f-display); font-size: 1.25rem; }
+.prose table { font-size: var(--fs-small); }
+.prose td, .prose th { border-block-end: 1px solid var(--c-border); padding: .5em; text-align: start; }
+.prose--lead { font-size: var(--fs-body-lg); }
+.prose--article { font-size: 1.075rem; }
+.prose iframe { inline-size: 100%; aspect-ratio: 16/9; border: 0; border-radius: var(--r-md); }
+
+:focus-visible { outline: 2px solid var(--c-secondary); outline-offset: 3px; border-radius: 2px; }
+.skip-link { position: absolute; inset-inline-start: 1rem; inset-block-start: -100px; z-index: 100; background: var(--c-text); color: var(--c-paper); padding: .6rem 1rem; border-radius: var(--r-sm); }
+.skip-link:focus { inset-block-start: 1rem; }
+::selection { background: var(--c-accent); color: var(--c-text); }
+
+/* Mirror directional icons (arrows) for RTL. */
+[dir='rtl'] .flip-rtl { transform: scaleX(-1); }
+[dir='ltr'] .flip-ltr { transform: scaleX(-1); }
+[dir='rtl'] .flip-ltr { transform: none; }

@@ -60,6 +60,7 @@ return [
         'count' => ':count محصول',
         'contact_for_price' => 'برای قیمت تماس بگیرید',
         'variant' => 'انتخاب نوع',
+        'availability' => 'موجودی',
         'package_shot' => 'بسته کامل',
     ],
     'stock' => ['in_stock' => 'موجود', 'out_of_stock' => 'ناموجود', 'preorder' => 'پیش‌سفارش', 'discontinued' => 'توقف تولید'],

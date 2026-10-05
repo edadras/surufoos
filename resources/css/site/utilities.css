@@ -1,0 +1,17 @@
+.visually-hidden { position: absolute !important; inline-size: 1px; block-size: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.only-mobile { display: none; }
+@media (max-width: 999px) { .only-mobile { display: inline-flex; } .only-desktop { display: none; } }
+.banner .only-mobile { display: none; }
+@media (max-width: 640px) { .banner .only-mobile { display: block; } .banner .only-desktop { display: none; } }
+
+/* Motion: initial states only apply when JS (and motion) are available, so content is never hidden without JS. */
+.js.motion-ok [data-reveal] { opacity: 0; transform: translateY(30px); }
+.js.motion-ok [data-reveal-mask] { clip-path: inset(12% 8% 12% 8% round var(--r-lg)); }
+.js.motion-ok [data-reveal-mask] img { transform: scale(1.15); }
+.split-line { display: block; overflow: hidden; padding-block-end: .06em; }
+.split-line > span { display: inline-block; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    .world:hover { flex-grow: 1; }
+}

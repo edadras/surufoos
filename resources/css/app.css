@@ -1,9 +1,16 @@
-@import 'tailwindcss';
+/* Suru Food — public site stylesheet entry. Layers keep specificity predictable. */
+@layer reset, tokens, base, layout, components, sections, pages, utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+@import '@fontsource-variable/fraunces/index.css' layer(base);
+@import '@fontsource-variable/manrope/index.css' layer(base);
+@import 'vazirmatn/Vazirmatn-Variable-font-face.css' layer(base);
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-}
+@import './site/tokens.css' layer(tokens);
+@import './site/base.css' layer(base);
+@import './site/layout.css' layer(layout);
+@import './site/components.css' layer(components);
+@import './site/header.css' layer(components);
+@import './site/product-card.css' layer(components);
+@import './site/sections.css' layer(sections);
+@import './site/pages.css' layer(pages);
+@import './site/utilities.css' layer(utilities);

@@ -60,6 +60,7 @@ return [
         'count' => ':count products',
         'contact_for_price' => 'Contact us for pricing',
         'variant' => 'Choose option',
+        'availability' => 'Availability',
         'package_shot' => 'The pack',
     ],
     'stock' => ['in_stock' => 'In stock', 'out_of_stock' => 'Out of stock', 'preorder' => 'Pre-order', 'discontinued' => 'Discontinued'],

@@ -1,0 +1,79 @@
+/*
+ * Design tokens. Colour values here are the neutral starting point; the brand
+ * palette is set in Admin › Settings › Colours (it can be extracted from the
+ * logo there) and injected as :root overrides. Products and categories also
+ * get --tint from their own packaging colours.
+ */
+:root {
+    --c-primary: #24412f;
+    --c-secondary: #b5532f;
+    --c-accent: #e3a43a;
+    --c-surface: #f6f1e7;
+    --c-surface-warm: #ede3d1;
+    --c-paper: #fffdf8;
+    --c-text: #1d2620;
+    --c-text-2: #5d6359;
+    --c-border: #d9cfbd;
+    --c-success: #2f7d4f;
+    --c-warning: #b97a0c;
+    --c-error: #b3261e;
+    --c-on-primary: #fffdf8;
+
+    --tint: var(--c-surface-warm);
+    --tint-soft: color-mix(in oklab, var(--tint) 22%, var(--c-paper));
+    --tint-mid: color-mix(in oklab, var(--tint) 45%, var(--c-paper));
+
+    --f-latin-display: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+    --f-latin-body: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
+    --f-arabic: 'Vazirmatn', Tahoma, sans-serif;
+    --f-display: var(--f-latin-display), var(--f-arabic);
+    --f-body: var(--f-latin-body), var(--f-arabic);
+
+    /* Type scale: Display, H1, H2, H3, Body Large, Body, Small, Caption */
+    --fs-display: clamp(2.75rem, 1.6rem + 5.2vw, 6.5rem);
+    --fs-h1: clamp(2.25rem, 1.5rem + 3.4vw, 4.5rem);
+    --fs-h2: clamp(1.75rem, 1.3rem + 2vw, 3rem);
+    --fs-h3: clamp(1.25rem, 1.1rem + .7vw, 1.6rem);
+    --fs-body-lg: clamp(1.075rem, 1rem + .35vw, 1.3rem);
+    --fs-body: 1rem;
+    --fs-small: .875rem;
+    --fs-caption: .75rem;
+    --lh-tight: 1.05;
+    --lh-heading: 1.15;
+    --lh-body: 1.75;
+    --fw-display: 600;
+
+    --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem; --space-5: 1.5rem;
+    --space-6: 2rem; --space-7: 3rem; --space-8: 4.5rem; --space-9: 7rem;
+    --section-y: clamp(4rem, 2.5rem + 6vw, 9rem);
+
+    --container: 1320px;
+    --container-narrow: 760px;
+    --gutter: clamp(1rem, .5rem + 2.4vw, 2.5rem);
+
+    --r-sm: 4px; --r-md: 8px; --r-lg: 14px; --r-pill: 999px;
+    --shadow-soft: 0 1px 2px rgb(29 38 32 / .06), 0 8px 24px -12px rgb(29 38 32 / .18);
+    --shadow-lift: 0 30px 50px -28px rgb(29 38 32 / .45);
+
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
+    --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+    --dur-1: .18s; --dur-2: .35s; --dur-3: .7s;
+
+    --header-h: 76px;
+    --dir: 1; /* 1 for LTR, -1 for RTL; used by transforms that must mirror. */
+}
+
+[dir='rtl'] {
+    --dir: -1;
+    /* Persian/Arabic: Vazirmatn carries the text; heavier display weight and looser leading. */
+    --f-display: var(--f-arabic);
+    --f-body: var(--f-arabic);
+    --fw-display: 800;
+    --lh-tight: 1.2;
+    --lh-heading: 1.35;
+    --lh-body: 1.95;
+}
+
+[lang='ar'] {
+    --lh-body: 2;
+}

@@ -1,0 +1,27 @@
+.container { inline-size: 100%; max-inline-size: calc(var(--container) + var(--gutter) * 2); margin-inline: auto; padding-inline: var(--gutter); }
+.container--narrow { max-inline-size: calc(var(--container-narrow) + var(--gutter) * 2); }
+.section { padding-block: var(--section-y); position: relative; }
+.section--tight { padding-block: var(--space-7); }
+#main { outline: none; min-height: 60vh; }
+
+.section-head { display: grid; gap: var(--space-3); margin-block-end: var(--space-7); max-inline-size: 760px; }
+.section-head .link-arrow { justify-self: start; margin-block-start: var(--space-2); }
+@media (min-width: 900px) {
+    .section-head:has(.link-arrow) { max-inline-size: none; grid-template-columns: minmax(0, 760px) 1fr; align-items: end; }
+    .section-head:has(.link-arrow) > :not(.link-arrow) { grid-column: 1; }
+    .section-head:has(.link-arrow) .link-arrow { grid-column: 2; grid-row: 1 / span 3; justify-self: end; align-self: end; }
+}
+
+.page-hero { padding-block: calc(var(--space-7) + var(--space-4)) var(--space-7); background: linear-gradient(to bottom, var(--tint-soft), transparent); position: relative; }
+.page-hero .display-1 { margin-block: var(--space-4); max-inline-size: 18ch; }
+.page-hero__grid { display: grid; gap: var(--space-6); align-items: center; }
+.page-hero__row { display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+@media (min-width: 900px) { .page-hero__grid { grid-template-columns: 1.4fr 1fr; } }
+.page-hero__pack img { max-block-size: 360px; inline-size: auto; margin-inline: auto; filter: drop-shadow(0 30px 30px rgb(0 0 0 / .18)); }
+.page-hero__media { margin-block-start: var(--space-7); margin-inline: var(--gutter); border-radius: var(--r-lg); overflow: hidden; max-block-size: 70vh; }
+.page-hero__media img { inline-size: 100%; block-size: 100%; object-fit: cover; aspect-ratio: 21/9; }
+
+.chips-row { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-block-start: var(--space-5); }
+.empty-block { padding: var(--space-8) var(--space-5); text-align: center; display: grid; gap: var(--space-4); justify-items: center; border: 1px dashed var(--c-border); border-radius: var(--r-lg); color: var(--c-text-2); }
+.empty-state { text-align: center; }
+.empty-state .container { display: grid; gap: var(--space-5); justify-items: center; }
